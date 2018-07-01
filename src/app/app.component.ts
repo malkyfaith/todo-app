@@ -14,12 +14,12 @@ export class AppComponent {
 
   addTodo() {
     this.todoDataService.addTodo(this.newTodo);
-    this.newTodo = new Todo();
+    // this.newTodo = new Todo();
   }
 
 
   toggleTodoComplete(todo) {
-    this.todoDataService.toggleTodoComplete(todo);
+    this.todoDataService.toggleTodoComplete(todo.id);
   }
 
   removeTodo(todo) {

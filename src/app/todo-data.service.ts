@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './todo';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class TodoDataService {
@@ -8,44 +9,39 @@ export class TodoDataService {
 
   lastId = 0;
 
-  constructor() { }
-
-  getTodos(): Todo[] {
-    return this.todos;
+  constructor(private _store: Store<any>) {
+    _store.select('todos').subscribe(todos => {
+      this.todos = todos;
+    });
   }
 
-  getTodoById(id: number): Todo {
-    return this.todos.filter(t => t.id === id).pop();
+  addTodo(todo: Todo): void {
+    this._store.dispatch({
+      type: 'ADD_TODO',
+      payload: {
+        id: ++this.lastId,
+        title: todo.title,
+        complete: todo.complete
+      }
+    });
   }
 
-  addTodo(todo: Todo): TodoDataService {
-    if (!todo.id) {
-      todo.id = ++this.lastId;
-    }
-    this.todos.push(todo);
-    return this;
+  deleteTodoById(id: number) {
+    this._store.dispatch({
+      type: 'REMOVE_TODO',
+      payload: {
+        id: id
+      }
+    });
   }
 
-  updateTodoById(id, value: Object = {}): Todo {
-    const todo = this.getTodoById(id);
-    if (!todo) {
-      return null;
-    }
-    Object.assign(todo, value);
-    return todo;
-  }
-
-  deleteTodoById(id) {
-    const todo = this.getTodoById(id);
-    if (!todo) {
-      return null;
-    }
-    this.todos.splice(this.todos.indexOf(todo), 1);
-  }
-
-  toggleTodoComplete(todo: Todo) {
-    const updatedTodo = this.updateTodoById(todo.id, {complete: !todo.complete});
-    return updatedTodo;
+  toggleTodoComplete(id: number) {
+    this._store.dispatch({
+      type: 'TOGGLE_COMPLETE',
+      payload: {
+        id: id
+      }
+    });
   }
 
   public getCompleteTodos(): Todo[] {

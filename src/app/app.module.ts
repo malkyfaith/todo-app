@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { todos } from './redux/reducer';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot({ todos })
   ],
   bootstrap: [AppComponent]
 })
