@@ -5,9 +5,7 @@ import * as TutorialActions from './redux/actions';
 
 @Injectable()
 export class TodoDataService {
-
   todos: Todo[] = [];
-
   lastId = 0;
 
   constructor(private _store: Store<any>) {
@@ -30,7 +28,7 @@ export class TodoDataService {
 
   deleteTodoById(id: number) {
     this._store.dispatch({
-      type:  TutorialActions.REMOVE_TUTORIAL,
+      type: TutorialActions.REMOVE_TUTORIAL,
       payload: {
         id: id
       }
@@ -39,7 +37,7 @@ export class TodoDataService {
 
   toggleTodoComplete(id: number) {
     this._store.dispatch({
-      type:  TutorialActions.TOGGLE_TUTORIAL,
+      type: TutorialActions.TOGGLE_TUTORIAL,
       payload: {
         id: id
       }
