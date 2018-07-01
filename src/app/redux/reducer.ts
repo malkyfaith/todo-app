@@ -1,12 +1,14 @@
-export const todos = (state = [], action) => {
+import * as TutorialActions from './actions';
+
+export const todos = (state = [], action: TutorialActions.Actions) => {
     switch (action.type) {
-        case 'ADD_TODO':
+        case TutorialActions.ADD_TUTORIAL:
             return [...state, action.payload];
-        case 'REMOVE_TODO':
-            return state.filter(todo => todo.id !== action.payload.id);
-        case 'TOGGLE_COMPLETE':
+        case TutorialActions.REMOVE_TUTORIAL:
+            return state.filter(todo => todo.id !== action.payload['id']);
+        case TutorialActions.TOGGLE_TUTORIAL:
             return state.map(todo => {
-                if (todo.id === action.payload.id) {
+                if (todo.id === action.payload['id']) {
                     return Object.assign({}, todo, {complete: !todo.complete});
                 }
                 return todo;
