@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --red: red;
+  }
+  
+  body {
+    background-color: var(--red);
+  }
+  
+  h1 {
+    font-size: 3em;
+  }
